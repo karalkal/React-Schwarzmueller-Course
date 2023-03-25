@@ -1,4 +1,4 @@
-let expenses = [
+const expenses = [
   {
     id: 'e1',
     title: 'Laptop',
@@ -9,7 +9,7 @@ let expenses = [
     id: 'e2',
     title: 'TV',
     amount: 799.49,
-    date: new Date(2021, 2, 12)
+    date: new Date(2019, 2, 1)
   },
   {
     id: 'e3',
@@ -21,7 +21,7 @@ let expenses = [
     id: 'e4',
     title: 'Desk',
     amount: 450,
-    date: new Date(2021, 5, 12),
+    date: new Date(2022, 5, 3),
   },
 ];
 
