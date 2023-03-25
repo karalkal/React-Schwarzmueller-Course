@@ -7,13 +7,10 @@ import Expenses from './components/Expenses/Expenses';
 
 const App = () => {
 
-  React.useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(initialExpensesData))
-  }, [])
-
-
-  const [expensesFromLocalStorage, setExpenses] = React.useState(JSON.parse(localStorage.getItem("expenses")))
-
+  localStorage.setItem("expenses", JSON.stringify(initialExpensesData))
+  // Lazy initialization (runs only first render) by providing callback function rather variable 
+  // WILL NOT WORK HERE
+  const [expensesInLocalStorage, setExpensesInLocalStorage] = React.useState(() => JSON.parse(localStorage.getItem("expenses")))
 
   const addExpenseHandler = expense => {
     console.log('In App.js');
@@ -24,7 +21,7 @@ const App = () => {
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expensesFromLocalStorage} />
+      <Expenses items={expensesInLocalStorage} />
     </div>
   );
 }
