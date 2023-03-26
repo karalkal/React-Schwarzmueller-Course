@@ -25,7 +25,6 @@ const App = () => {
     setExpensesFromLocalStorage(localStorage.getItem("expenses"))
   };
 
-
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
