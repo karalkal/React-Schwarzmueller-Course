@@ -7,7 +7,7 @@ const ExpenseItem = (props) => {
   /*
   In this version we are storing the original data in localStorage as json 
   (to enable addition of new expenses as we cannot write in the original data file from the browser)
-  Then we use this json to render all components.
+  Then we use this json to render all components (and re-render when localStorage is updated).
   Since our date is now just a simple string we need to split it, 
   create Date object from it and then from this object we derive 
   a new one with day, month, year props (of course both objects could be merged but this is easier to grasp)

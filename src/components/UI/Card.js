@@ -3,8 +3,8 @@ import React from 'react';
 import './Card.css';
 
 export default function Card(props) {
-  // Max wanted to illustrate how we can get a className via props and then concatenate with local string, 
-  // otherwise it makes more sence to have this class in Card.css
+  // get a className via props and then concatenate with local string, 
+  // container Card has className='expenses', expenseItems have className='expense-item'
   const classes = 'card ' + props.className;
 
   // Essentially, props.children is a special prop, automatically passed to every component, 
