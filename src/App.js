@@ -4,11 +4,13 @@ import initialExpensesData from './data.js'
 import NewExpense from './components/NewExpense/NewExpense';
 import Expenses from './components/Expenses/Expenses';
 
+// OF COURSE you have to set localStorage here, idiot!
+// otherwise it will re-assign itself with the initial array at each App re-render
+localStorage.setItem("expenses", JSON.stringify(initialExpensesData));
 
 const App = () => {
-  localStorage.setItem("expenses", JSON.stringify(initialExpensesData));
 
-  const [expensesInLocalStorage, setExpensesInLocalStorage] =
+  const [expensesFromLocalStorage, setExpensesFromLocalStorage] =
     React.useState(localStorage.getItem("expenses"));
 
   // In initialExpensesData date is Date
@@ -18,32 +20,27 @@ const App = () => {
   // console.log(initialExpensesData[1].date)
   // console.log((JSON.parse(expensesInLocalStorage))[1].date)
 
-
   const addExpenseHandler = expense => {
     const newExpense = {
       ...expense,
       date: (expense.date).toISOString()
     }
-    // console.log(expense.date, newExpense.date, JSON.parse(expensesInLocalStorage)[2].date)
 
     let prevExpArr = JSON.parse(localStorage.getItem("expenses"));
     let newExpArr = [newExpense, ...prevExpArr]
 
-    console.log(prevExpArr)
-    console.log(newExpArr)
-    
+    // set localStorage with updated array
     localStorage.setItem("expenses", JSON.stringify(newExpArr));
-
-    // setExpensesInLocalStorage(JSON.stringify(newExpArr))
-
-    console.log(expensesInLocalStorage);
+    
+    // trigger re-render with the newly assigned state
+    setExpensesFromLocalStorage(localStorage.getItem("expenses"))
   };
 
 
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={JSON.parse(expensesInLocalStorage)} />
+      <Expenses items={JSON.parse(expensesFromLocalStorage)} />
     </div>
   );
 }
