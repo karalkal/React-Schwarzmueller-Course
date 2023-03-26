@@ -22,10 +22,14 @@ const ExpenseForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    // In initialExpensesData date is Date
+    // But is stored in localStorage as date:"2020-08-13T23:00:00.000Z"
+    // After parsing expensesInLocalStorage date remains string
+    // Hence we need to cast date of new entry to string before adding it to array
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
-      date: new Date(enteredDate),
+      amount: Number(enteredAmount),
+      date: (new Date(enteredDate).toISOString()),
     };
 
     props.onSaveExpenseData(expenseData);
@@ -41,7 +45,7 @@ const ExpenseForm = (props) => {
           <label>Title</label>
           <input
             type='text'
-            value={enteredTitle}
+            value={enteredTitle}    // 2-Way Binding - 'onChange' listens to changes, 'value' passes value back from state
             onChange={titleChangeHandler}
           />
         </div>

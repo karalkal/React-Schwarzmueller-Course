@@ -7,8 +7,11 @@ import './Expenses.css';
 
 const Expenses = (props) => {
   const [filteredYear, setFilteredYear] = useState('2020');
-  const items = props.items
 
+  // our dates are now strings, hence we aren't using Date.prototype.getFullYear()
+  const items = (props.items).filter(thingie => thingie.date.substring(0,4) === filteredYear)
+
+  // gets selected year from ExpensesFilter.js -->> props.onChangeFilter(event.target.value);
   const filterChangeHandler = selectedYear => {
     setFilteredYear(selectedYear);
   };
