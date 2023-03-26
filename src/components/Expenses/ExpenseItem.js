@@ -13,7 +13,6 @@ const ExpenseItem = (props) => {
   a new one with day, month, year props (of course both objects could be merged but this is easier to grasp)
   */
 
-
   const dateAsArr = props.date.split("-")
   const dateObj = new Date(dateAsArr[0], dateAsArr[1], dateAsArr[2].slice(0, 2))  //(year, month, day)
   const expenseDateObj = {
