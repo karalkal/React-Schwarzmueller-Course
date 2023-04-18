@@ -15,7 +15,7 @@ I have merged it into the ExpenseItem.js itself, thus simplifying the app struct
  - Because of this major modifications were made in the way Data objects were manipulated. Data in localStorage is stored as json, hence the date objects are strings which we need to parse again to Date objects so we can obtain the day, month, year in the required format. At the same time newly created items need to have their date cast to toISOString() before being added to the array we will be stringifying and saving in localStorage. Please refer to the actual code and comments.
 
 ### **02-styling--styled-components-css-modules** 
-#### *(Comprehensive overview of different styling techniques)*
+#### *(Dynamic CSS styling)*
 
 There are 3 versions of  CourseInput folder which contains the CourseInput.js component where Max has demonstrated the 3 techniques to apply dynamic styling to an element - if the user tries to submit a blank form the class invalid will be applied to the div element which will then affect the children <label\> and <input\> by coloring them red(dish):
 

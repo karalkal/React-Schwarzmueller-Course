@@ -1,5 +1,5 @@
 ### **02-styling--styled-components-css-modules** 
-#### *(Comprehensive overview of different styling techniques)*
+#### *(3 different dynamic styling techniques, incl. mediaqueries)*
 
 There are 3 versions of  CourseInput folder which contains the CourseInput.js component where Max has demonstrated the 3 techniques to apply dynamic styling to an element - if the user tries to submit a blank form the class invalid will be applied to the div element which will then affect the children <label\> and <input\> by coloring them red(dish):
 
