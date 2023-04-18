@@ -1,12 +1,12 @@
-import './App.css';
 import Form from './components/Form'
 import Cards from './components/Cards'
+import "./App.css"
 
 function App() {
   return (
-    <div>
-      <Form />
-      <Cards />
+    <div id="main-container">
+        <Form />
+        <Cards />
     </div>
   );
 }

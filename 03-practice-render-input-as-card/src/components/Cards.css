@@ -1,0 +1,17 @@
+.cards-container {
+    width: 62%;
+    margin: 44px auto 0;
+    background-color: #EEEEEE;
+    padding: 17px;
+    border-radius: 11px;
+}
+
+
+.cards-container>p {
+    width: 100%;
+    padding-left: 8px;
+    border: 1px solid #848484;
+    border-radius: 2px;
+    height: 35px;
+    line-height: 35px;
+}
