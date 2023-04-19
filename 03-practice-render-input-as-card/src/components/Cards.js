@@ -8,7 +8,9 @@ export default function Cards(props) {
     return (
         <div className="cards-container ">
             {entries.map(e =>
-                <p><strong>{e.username}</strong> - ({e.age} years old)</p>
+                <p key={entries.indexOf(e)}>
+                    <strong>{e.username}</strong> - ({e.age} years old)
+                </p>
             )}
         </div>
     )
