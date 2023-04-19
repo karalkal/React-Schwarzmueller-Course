@@ -10,9 +10,9 @@ export default function Form(props) {
         }
     )
 
-    console.log(formData)
-
     function handleChange(event) {
+        // ERRORS not triggered modal while typing (e.g. start typing age with string), can do this
+
         // set values of form fields
         /* Simplified version
         console.log(event.target.name)
@@ -42,15 +42,41 @@ export default function Form(props) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        // console.log(event.target.username.value)
-        // console.log(event.target.age.value)
-        const newEntry = ({
-            username: event.target.username.value,
-            age: event.target.age.value
-        })
-        setFormData({ username: "", age: "" })      //reset
-        props.addNewEntry(newEntry)
+
+        // const numericAge = event.target.age.value
+        const numericAge = Number(formData.age)
+
+        // ERRORS -> if error, change state of displayErrorModal and return        
+        // Number("") === 0
+        if (formData.username === "" || formData.age === "") {
+            props.displayErrorModal(true, "No blank spaces allowed!")
+            return
+        }
+        // typeof NaN returns "number"
+        else if (Number.isNaN(numericAge)) {
+            props.displayErrorModal(true, "Age must be a number")
+            return
+        }
+        else if (numericAge <= 0) {
+            props.displayErrorModal(true, "Come back when you are born")
+            return
+        }
+        else if (numericAge % 1 !== 0) {
+            props.displayErrorModal(true, "Whole numbers only allowed")
+            return
+        }
+
+        // IF ALL GOOD -> reset form, add new to entries array
+        else {
+            const newEntry = ({
+                username: event.target.username.value,
+                age: numericAge
+            })
+            setFormData({ username: "", age: "" })      // reset
+            props.addNewEntry(newEntry)                 // send object to parent component where it will be added to array
+        }
     }
+
 
     return (
         <div className="form-container">

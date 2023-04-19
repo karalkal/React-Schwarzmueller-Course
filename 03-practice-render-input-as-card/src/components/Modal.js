@@ -2,7 +2,7 @@ import React from "react"
 import './Modal.css'
 
 
-const Modal = ({ handleClose, show, children }) => {
+const Modal = ({ handleClose, show, message }) => {
     const showHideClassName = show ? "modal display-block" : "modal display-none";
 
     return (
@@ -10,7 +10,7 @@ const Modal = ({ handleClose, show, children }) => {
             <section className="modal-main">
                 <div className="modal-main--header">Invalid input</div>
                 <div className="modal-main--message--and--btn">
-                    <p>Default Error Message {children} </p>
+                    <p>{message}</p>
                     <button type="button" onClick={handleClose}>
                         Okay
                     </button>
