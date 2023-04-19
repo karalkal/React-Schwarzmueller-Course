@@ -7,14 +7,15 @@ function App() {
   const [entries, setEntries] = useState([])
 
   function addNewEntry(entry) {
-    setEntries(prevEntries =>[ entry, ...prevEntries])
+    setEntries(prevEntries => [entry, ...prevEntries])
   }
 
 
   return (
     <div id="main-container">
-        <Form addNewEntry={addNewEntry}/>
-        <Cards entries={entries}/>
+      <Form addNewEntry={addNewEntry} />
+      {entries.length > 0 && <Cards entries={entries} />}
+      {/* display results section only if array is not empty */}
     </div>
   );
 }

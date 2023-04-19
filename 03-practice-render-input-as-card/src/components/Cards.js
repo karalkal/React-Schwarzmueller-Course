@@ -4,11 +4,12 @@ import './Cards.css'
 
 export default function Cards(props) {
 
-    console.log(props.entries)
+    const entries = props.entries
     return (
         <div className="cards-container ">
-            <p>Card1</p>
-            <p>Card1</p>
+            {entries.map(e =>
+                <p><strong>{e.username}</strong> - ({e.age} years old)</p>
+            )}
         </div>
     )
 }
