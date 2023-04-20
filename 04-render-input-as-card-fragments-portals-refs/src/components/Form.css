@@ -1,0 +1,33 @@
+.form-container {
+    width: 62%;
+    margin: 44px auto 0;
+    background-color: #EEEEEE;
+    padding: 17px;
+    border-radius: 11px;
+}
+
+.form>label,
+.form>input {
+    display: block;
+}
+
+.form>label {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.form>input {
+    margin: 8px 0 17px;
+    width: 100%;
+    height: 26px;
+    border: 1px solid #848484;
+    border-radius: 2px;
+}
+
+.form>.submit-btn {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 8px 22px;
+    background-color: #300150;
+    color: #EEEEEE;
+}

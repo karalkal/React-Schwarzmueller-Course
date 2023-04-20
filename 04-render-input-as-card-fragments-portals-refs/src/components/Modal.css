@@ -1,0 +1,65 @@
+.modal {
+    /* covers the main screen with black, opacity 0.6*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+.modal-main {
+    position: fixed;
+    width: 80%;
+    /* height: auto; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* If you want more divs inside the parent div, that do not 'cut off' the rounded corners, you can set: */
+.modal-main>div:first-child {
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+}
+
+.modal-main>div:last-child {
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+}
+
+
+.modal-main--header {
+    font-size: 26px;
+    font-weight: 500;
+    padding: 8px 22px;
+    background-color: #300150;
+    color: #EEEEEE;
+}
+
+.modal-main--message--and--btn {
+    font-size: 19px;
+    padding: 8px 22px;
+    background-color: #EEEEEE;
+}
+
+.modal-main--message--and--btn>button {
+    /* cannot use float: right because parene element has position: fixed */
+    margin-right: 0;
+    margin-left: auto;
+    display: block;
+
+    font-size: 17px;
+    font-weight: 500;
+    padding: 8px 22px;
+    background-color: #300150;
+    color: #EEEEEE;
+}

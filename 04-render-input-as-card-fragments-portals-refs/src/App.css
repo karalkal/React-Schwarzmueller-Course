@@ -1,0 +1,15 @@
+/* If the display of your parent container is flex, then
+margin: auto auto (also known as margin: auto) 
+will work to center it both horizontally and vertically, 
+regardless if it is an inline or block element. */
+
+#main-container {
+  display: flex;
+  /* vertical */
+  /* align-items: center; */
+
+  /* horizontal */
+  justify-content: center;
+  
+  flex-direction: column;
+}
