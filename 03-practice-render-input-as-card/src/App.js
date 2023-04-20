@@ -7,12 +7,10 @@ import "./App.css"
 
 function App() {
   const [entries, setEntries] = useState([])
-  const [showModal, setShowModal] = useState(
-    {
-      display: false,
-      message: ""
-    }
-  )
+  const [errorModal, setErrorModal] = useState({
+    display: false,
+    message: ""
+  })
 
 
   function addNewEntry(entry) {
@@ -26,22 +24,22 @@ function App() {
       <Form
         addNewEntry={addNewEntry}
         // if error display, message will be returned and modal state will be updated => re-render
-        displayErrorModal={(display, message) => setShowModal(
+        displayErrorModal={(display, message) => setErrorModal(
           { display, message }
         )}
       />
 
-      {entries.length > 0 && <Cards entries={entries} />}
       {/* display results section only if array is not empty */}
+      {entries.length > 0 && <Cards entries={entries} />}
 
-      {/* handleClose - reset modal state to dsipay false, no message */}
+      {/* handleClose - reset modal state to dislpay false, no message */}
       <Modal
-        handleClose={() => setShowModal({
+        hideModal={() => setErrorModal({
           display: false,
           message: ""
         })}
-        show={showModal.display}
-        message={showModal.message}
+        show={errorModal.display}
+        message={errorModal.message}
       />
     </div>
   );

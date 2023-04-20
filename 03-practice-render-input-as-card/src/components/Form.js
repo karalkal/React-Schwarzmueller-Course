@@ -15,13 +15,13 @@ export default function Form(props) {
 
         // set values of form fields
         /* Simplified version
-        console.log(event.target.name)
-        if (event.target.name = "username") {
-            setFormData(prevFormData => ({ ...prevFormData, username: event.target.value }))    // brackets instead of {return ......}
-        } else if (event.target.name = "age") {
-            setFormData(prevFormData => ({ ...prevFormData, age: event.target.value }))
-        }
-        */
+            console.log(event.target.name)
+            if (event.target.name = "username") {
+                setFormData(prevFormData => ({ ...prevFormData, username: event.target.value }))    // brackets instead of {return ......}
+            } else if (event.target.name = "age") {
+                setFormData(prevFormData => ({ ...prevFormData, age: event.target.value }))
+            }
+            */
 
         // Universal version for updating object form form
         const { name, value, type, checked } = event.target
@@ -43,13 +43,13 @@ export default function Form(props) {
     function handleSubmit(event) {
         event.preventDefault()
 
-        // const numericAge = event.target.age.value
-        const numericAge = Number(formData.age)
+        // const numericAge = event.target.age.value    // get it from event
+        const numericAge = Number(formData.age)         // get it from state
 
         // ERRORS -> if error, change state of displayErrorModal and return        
         // Number("") === 0
-        if (formData.username === "" || formData.age === "") {
-            props.displayErrorModal(true, "No blank spaces allowed!")
+        if (formData.username.trim() === "" || formData.age.trim() === "") {
+            props.displayErrorModal(true, "No blank entries allowed!")
             return
         }
         // typeof NaN returns "number"
