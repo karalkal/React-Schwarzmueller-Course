@@ -38,8 +38,7 @@ function App() {
           display: false,
           message: ""
         })}
-        show={errorModal.display}
-        message={errorModal.message}
+        errorModal={errorModal}
       />
     </div>
   );

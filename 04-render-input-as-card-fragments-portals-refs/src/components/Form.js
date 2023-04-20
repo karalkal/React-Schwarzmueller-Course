@@ -40,8 +40,8 @@ export default function Form(props) {
                 age: enteredAge
             })
             // reset form fields
-            enteredName.value = ""
-            enteredName.age = ""
+            nameInputRef.current.value = ""
+            ageInputRef.current.value = ""
             // send object to parent component where it will be added to array
             props.addNewEntry(newEntry)
         }
