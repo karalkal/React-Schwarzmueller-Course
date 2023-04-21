@@ -32,7 +32,7 @@ export default function Form(props) {
             return
         }
 
-        // IF ALL GOOD: 
+        // IF ALL IS GOOD: 
         else {
             // create entry
             const newEntry = ({

@@ -84,6 +84,15 @@ With this method no css file is actually required
 - then use styles object like this         `className={`${styles['form-control']} ${!isValid && styles.invalid}`}`
 NOTE: we have ['form-control'] because of the minus in the name of the property
 
+### **03-practice-render-input-as-card** 
+#### *(Practicing the topics covered so far)*
+
+NOTE: My implementation difers significantly from Max's as it has been created entirely independently
+
+### **04-04-render-input-as-card-portal-refs** 
+#### *(Refactored form to use refs instead of name/value crossreferencing via state, 
+#### modal rendered at top level by use of portal)*
+
 
 
 
