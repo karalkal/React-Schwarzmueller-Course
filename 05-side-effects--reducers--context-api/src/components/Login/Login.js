@@ -13,11 +13,30 @@ const Login = (props) => {
 
   // effect runs at each enteredEmail or enteredPassword change
   // if both conditions are true, change state of formIsValid
+
+  // To avoid running the effect (validation) at each keystroke 
+  // but only after setInterval - debouncing.
+  // In the body of useEffect callback function we return a cleanup function
+  // It will run before useEffect runs this function again and when component is unmounted from DOM
+
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    )
-  }, [enteredEmail, enteredPassword])
+    console.log("Running validator")
+
+    const validator = setTimeout(() => {
+      console.log("800ms passed")
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    },
+      800);
+
+    return () => {
+      clearTimeout(validator)
+      console.log("Timer reset")
+    }
+
+  },
+    [enteredEmail, enteredPassword])
 
 
   const emailChangeHandler = (event) => {
