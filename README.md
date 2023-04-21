@@ -3,6 +3,7 @@
 This project is based on  Max Schwarzmueller 's tutorial [react-complete-guide](https://github.com/academind/react-complete-guide-code).
 There are quite a few modifications of the code (not necessarily for the better) and comments detailing these changes as well as some of the basic React concepts.
 All topics covered by Max have been utilized in separate projects in a similar manner to how the original course has been structured.
+Please not most of the below is for my own reference rather than containing some VS(OP) code.
 
 ### **01-basics--react-expense-tracker** 
 #### *(Comprehensive overview of React basics such as components, props, useState hook etc.)*
@@ -92,6 +93,12 @@ NOTE: My implementation difers significantly from Max's as it has been created e
 ### **04-04-render-input-as-card-portal-refs** 
 #### *(Refactored form to use refs instead of name/value crossreferencing via state, 
 #### modal rendered at top level by use of portal)*
+
+### **05-side-effects--reducers--context-api**
+useEffect() triggers an action in response to a side effect, i.e. page loading/re-loading, 
+user input changes, data being loaded from server etc.
+It runs AFTER the render. 
+IF any of the dependancies changes, the function will run AGAIN
 
 
 
