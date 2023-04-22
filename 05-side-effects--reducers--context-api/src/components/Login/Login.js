@@ -28,11 +28,11 @@ const Login = (props) => {
         enteredEmail.includes('@') && enteredPassword.trim().length > 6
       );
     },
-      800);
+      1700);
 
     return () => {
       clearTimeout(validator)
-      console.log("Timer reset")
+      console.log("Timer reset / component unmounted")
     }
 
   },

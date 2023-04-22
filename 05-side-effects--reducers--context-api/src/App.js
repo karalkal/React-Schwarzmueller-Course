@@ -18,11 +18,12 @@ function App() {
 
 
   const loginHandler = (email, password) => {
-    localStorage.setItem("isLoggedIn", "Y")
+    localStorage.setItem("isLoggedIn", "Y");
+    setIsLoggedIn(true);
   };
 
   const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn")
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
 
