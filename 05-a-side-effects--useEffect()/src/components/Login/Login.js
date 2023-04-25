@@ -18,7 +18,7 @@ const Login = (props) => {
       This is unrelated to setFormIsValid
   */
 
-  // effect runs at each enteredEmail or enteredPassword change
+  // effect runs at each enteredEmail or enteredPassword state change, i.e. re-render
   // if both conditions are true, change state of formIsValid
 
   // DEBOUNCING - avoid running the effect (validation) at each keystroke 
