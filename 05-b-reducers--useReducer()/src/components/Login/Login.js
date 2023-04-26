@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -6,7 +6,7 @@ import Button from '../UI/Button/Button';
 
 
 function emailReducer(state, action) {
-  console.log(action, "emailState:", state)
+  console.log("emailAction", action, "\nemailState:", state)
 
   if (action.type === "EMAIL_INPUT") {
     return {
@@ -14,9 +14,9 @@ function emailReducer(state, action) {
       isValid: action.payload.val.includes('@')
     }
   }
-  else if (action.type === "EMAIL_BLUR") {
+  else if (action.type === "EMAIL_BLUR") {  // change state of isValid, hence CSS class
     return {
-      value: state.value,             // value remains the same
+      value: state.value,                   // value remains the same
       isValid: state.value.includes('@')
     }
   }
@@ -25,18 +25,18 @@ function emailReducer(state, action) {
 
 
 function passwordReducer(state, action) {
-  console.log(action, "passwordState:", state)
+  console.log("passAction:", action, "\npassState:", state)
 
   if (action.type === "PASS_INPUT") {
     return {
       value: action.payload.val,
-      isValid: action.payload.val.length > 7
+      isValid: action.payload.val.length >= 7
     }
   }
   else if (action.type === "PASS_BLUR") {
     return {
-      value: state.value,             // value remains the same
-      isValid: state.value.length > 7
+      value: state.value,
+      isValid: state.value.length >= 7
     }
   }
   return { value: "", isValid: false }
@@ -60,6 +60,11 @@ const Login = (props) => {
       value: "",
       isValid: false
     })
+
+
+  useEffect(() => setFormIsValid(emailState.isValid && passwordState.isValid),
+    [emailState, passwordState]
+  )
 
 
   const emailChangeHandler = (event) => {
@@ -99,8 +104,7 @@ const Login = (props) => {
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <div
-          className={`${classes.control} ${emailState.isValid === false ? classes.invalid : ''
-            }`}
+          className={`${classes.control} ${emailState.isValid === false ? classes.invalid : ''}`}
         >
           <label htmlFor="email">E-Mail</label>
           <input
