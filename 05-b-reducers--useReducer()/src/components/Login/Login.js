@@ -46,6 +46,7 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
   /*
     const [state, dispatchFn] = useReducer(reducerFn, initialState, initFn)
+
     dispatchFn - a function to update the state, will dispatch an action
     reducerFn - a function which is triggered upon dispatch of an action, 
     or in other words - (prevState, action) => newState
@@ -61,10 +62,29 @@ const Login = (props) => {
       isValid: false
     })
 
+  // To run effect only if values of isValid are changing rather than whole emailState / passwordState (i.e. when typing == state.value changes):
+  // Destructure emailState / passwordState, obtain isValid prop, assign to them emailIsValid and passIsValid aliases)
+  // Then these will be the dependancies
+  const { isValid: emailIsValid } = emailState
+  const { isValid: passIsValid } = passwordState
 
-  useEffect(() => setFormIsValid(emailState.isValid && passwordState.isValid),
-    [emailState, passwordState]
+  useEffect(() => {
+    // Timeout
+    const timeoutIdentifier = setTimeout(() => {
+      console.log("Checking validity with delay")
+      setFormIsValid(emailIsValid && passIsValid)
+    }, 800)
+
+    // Cleanup
+    return () => {
+      console.log("Cleaning up")
+      clearTimeout(timeoutIdentifier)
+    }
+
+    // Depenedancies - effect will run only if these have changed
+  }, [emailIsValid, passIsValid]
   )
+
 
 
   const emailChangeHandler = (event) => {
@@ -73,7 +93,6 @@ const Login = (props) => {
       payload: { val: event.target.value }
     })
   };
-  // setFormIsValid(emailState.isValid && passwordState.isValid)
 
 
   const passwordChangeHandler = (event) => {
@@ -82,7 +101,6 @@ const Login = (props) => {
       payload: { val: event.target.value }
     })
   };
-  // setFormIsValid(emailState.isValid && passwordState.isValid)
 
 
   const validateEmailHandler = () => {
