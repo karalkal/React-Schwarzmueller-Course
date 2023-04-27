@@ -3,7 +3,7 @@
 This project is based on  Max Schwarzmueller 's tutorial [react-complete-guide](https://github.com/academind/react-complete-guide-code).
 There are quite a few modifications of the code (not necessarily for the better) and comments detailing these changes as well as some of the basic React concepts.
 All topics covered by Max have been utilized in separate projects in a similar manner to how the original course has been structured.
-Please not most of the below is for my own reference rather than containing some VS(OP) code.
+Below could be found notes created for my own reference.
 
 ### **01-basics--react-expense-tracker** 
 #### *(Comprehensive overview of React basics such as components, props, useState hook etc.)*
@@ -95,18 +95,55 @@ NOTE: My implementation difers significantly from Max's as it has been created e
 #### modal rendered at top level by use of portal)*
 
 ### **05-side-effects--reducers--context-api**
+####05-a
 useEffect() triggers an action in response to a side effect, i.e. page loading/re-loading, 
 user input changes, data being loaded from server etc.
 It runs AFTER the render. 
 IF any of the dependancies changes, the function will run AGAIN
+####05-b
+ 
+####05-c
+It is not perfect when you pass state over multiple components with props if the "middle" components don't really use this, 
+i.e. they are only used as intermediary between a higher and lower level components. 
+In this case we have <MainHeader/> getting props from <App/> only to pass them on to <Navigation/>
+```
+const MainHeader = (props) => {
+  return (
+    <header className={classes['main-header']}>
+      <h1>A Typical Page</h1>
+      <Navigation isLoggedIn={props.isAuthenticated} onLogout={props.onLogout} />
+    </header>
+  );
+};
+```
 
+We create Context like this:`
+const AuthContext = React.createContext({
+    isLoggedIn: false
+})
 
+export default AuthContext`
 
+Then we need to 
+1. provide it / wrap components using it - wrap all components using it in
+```
+<AuthContext.Provider value={{
+        isLoggedIn: false,
+      }}>
+ </AuthContext.Provider>
+```
+**Children components will also have access to context props  (ctx.isLoggedIn in this case)
+and we don't have to pass it as via a chain of components which don't need it **
 
-
-
-
-
+2. consume it:
+2.2. with 
+```
+return (
+    <AuthContext.Consumer>
+      {(ctx) => {
+        return (
+          <nav> . . . . [code which needs access to ctx data] . . . . </nav>
+```
 
 
 
