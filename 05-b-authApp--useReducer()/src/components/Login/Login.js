@@ -61,8 +61,10 @@ const Login = (props) => {
       value: "",
       isValid: false
     })
-
-  // To run effect only if values of isValid are changing rather than whole emailState / passwordState (i.e. when typing == state.value changes):
+  // Avoid the effect function re-running whenever ANY property of object changes - 
+  // not just the one property our effect might depend on. 
+  // To run effect only if values of isValid are changing 
+  // rather than whole emailState / passwordState (i.e. when typing == state.value changes):
   // Destructure emailState / passwordState, obtain isValid prop, assign to them emailIsValid and passIsValid aliases)
   // Then these will be the dependancies
   const { isValid: emailIsValid } = emailState
