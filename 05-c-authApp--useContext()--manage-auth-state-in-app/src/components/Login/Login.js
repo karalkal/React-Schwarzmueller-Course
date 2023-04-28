@@ -48,7 +48,7 @@ const Login = (props) => {
   const [emailState, dispatchEmail] = useReducer(emailReducer, { value: "", isValid: false })
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, { value: "", isValid: false })
 
-  // dependancies
+  // Define dependencies
   const { isValid: emailIsValid } = emailState
   const { isValid: passIsValid } = passwordState
   useEffect(() => {
@@ -62,12 +62,10 @@ const Login = (props) => {
       console.log("Cleaning up")
       clearTimeout(timeoutIdentifier)
     }
-    // Depenedancies - effect will run only if these have changed
+    // Dependencies - effect will run only if these have changed
   }, [emailIsValid, passIsValid])
 
   const ctx = useContext(AuthContext)
-  console.log(ctx)
-
 
   const emailChangeHandler = (event) => {
     dispatchEmail({
@@ -97,7 +95,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // useContext instead of props
+    // useContext instead of props, although in this example we are passing props from App as well.
     ctx.onLogin(emailState.value, passwordState.value);
     // props.onLogin(emailState.value, passwordState.value);
   };

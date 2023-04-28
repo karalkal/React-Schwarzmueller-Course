@@ -41,6 +41,8 @@ function App() {
     }}>
       <MainHeader onLogout={logoutHandler} />
       <main>
+        {/* It is ok to pass these as props to child comps as they are directly consumed there  */}
+        {/* Just for the sake of the exercise we are still using ctx in child components  */}
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {isLoggedIn && <Home onLogout={logoutHandler} />}
       </main>

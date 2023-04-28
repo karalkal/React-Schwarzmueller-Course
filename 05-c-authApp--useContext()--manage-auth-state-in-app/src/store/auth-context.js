@@ -2,7 +2,7 @@ import React from "react"
 
 const AuthContext = React.createContext({
     isLoggedIn: false,
-    onLogout: () => { },            // dummy function, e.g. to help with autocompletion
+    onLogout: () => { },            // dummy function to help with autocompletion and representation/data consistency
     onLogin: (email, pw) => { }
 })
 

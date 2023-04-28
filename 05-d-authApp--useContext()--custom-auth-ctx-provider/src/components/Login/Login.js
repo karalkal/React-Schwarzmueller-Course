@@ -96,8 +96,8 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // useContext instead of props
     ctx.onLogin(emailState.value, passwordState.value);
+    // useContext instead of props
     // props.onLogin(emailState.value, passwordState.value);
   };
 

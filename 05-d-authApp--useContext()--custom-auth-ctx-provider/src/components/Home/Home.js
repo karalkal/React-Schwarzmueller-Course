@@ -12,8 +12,8 @@ const ctx = useContext(AuthContext)
     <Card className={classes.home}>
       <h1>Welcome back!</h1>
       {/* useContext instead of props */}
-      <Button onClick={ctx.onLogout}>Log Out</Button>
       {/* <Button onClick={props.onLogout}>Log Out</Button> */}
+      <Button onClick={ctx.onLogout}>Log Out</Button>
     </Card>
   );
 };

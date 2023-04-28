@@ -2,22 +2,21 @@ import React, { useState, useEffect } from "react";
 
 const AuthContext = React.createContext({
     isLoggedIn: false,
-    onLogout: () => { },      // dummy function, to help with autocompletion
+    onLogout: () => { },            // dummy function, to help with autocompletion, and maintain data persistency
     onLogin: (email, pw) => { }
 })
 
-// We can manage the whole auth functionality here and then wrap the whole App component in AuthContextProvider
+// We can manage the whole auth functionality here, return wrapper which is context provider and then wrap the App component in it
 export const AuthContextProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+    // check localStorage for logged in user
     useEffect(() => {
         const storedUserLoggedInInfo = localStorage.getItem('isLoggedIn')
-
         if (storedUserLoggedInInfo === "Y") {
             setIsLoggedIn(true)
         }
-    },
-        [])
+    }, [])     // no dependany, i.e. only at first render cycle
 
     const logoutHandler = () => {
         localStorage.removeItem("isLoggedIn");
