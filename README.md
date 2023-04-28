@@ -102,7 +102,7 @@ It runs AFTER the render.
 IF any of the dependancies changes, the function will run AGAIN
 ####05-b
  
-####05-c
+####05-c and 05-d
 It is not perfect when you pass state over multiple components with props if the "middle" components don't really use this, 
 i.e. they are only used as intermediary between a higher and lower level components. 
 In this case we have <MainHeader/> getting props from <App/> only to pass them on to <Navigation/>
@@ -125,7 +125,7 @@ const AuthContext = React.createContext({
 export default AuthContext`
 
 Then we need to 
-1. provide it / wrap components using it - wrap all components using it in
+**1. provide it / wrap components using it**
 ```
 <AuthContext.Provider value={{
         isLoggedIn: false,
@@ -135,8 +135,12 @@ Then we need to
 **Children components will also have access to context props  (ctx.isLoggedIn in this case)
 and we don't have to pass it as via a chain of components which don't need it **
 
-2. consume it:
-2.2. with 
+**2. consume it:**
+
+2.1. with AuthContext.Consumer 
+*In this example:*
+Originally we pass props from <App> to <MainHeader> to <Navigation>. Now with useContext <Navigation /> gets direct access to the context provided by <App>.
+Syntax is as follow: Consumer takes a child function which takes the ctx as arg and uses it in jsx code using it.
 ```
 return (
     <AuthContext.Consumer>
@@ -144,6 +148,16 @@ return (
         return (
           <nav> . . . . [code which needs access to ctx data] . . . . </nav>
 ```
+2.2 By using useContext hook:
+*In this example:*
+```
+import { useContext } from 'react';
+  const ctx = useContext(AuthContext)
+```
+and then just use it - see <Login> and <Home>
+N.B. `<AuthContext.Provider value={{ some-object with relevant props}}>`
+is always required as it will allow updating state of context
+
 
 
 

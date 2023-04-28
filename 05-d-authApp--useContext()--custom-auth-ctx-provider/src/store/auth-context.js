@@ -6,7 +6,7 @@ const AuthContext = React.createContext({
     onLogin: (email, pw) => { }
 })
 
-// We can manage the whole log in functionality here
+// We can manage the whole auth functionality here and then wrap the whole App component in AuthContextProvider
 export const AuthContextProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
