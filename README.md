@@ -119,7 +119,8 @@ const MainHeader = (props) => {
 
 We create Context like this:`
 const AuthContext = React.createContext({
-    isLoggedIn: false
+    isLoggedIn: false,
+    ...: ...
 })
 
 export default AuthContext`
@@ -128,12 +129,14 @@ Then we need to
 **1. provide it / wrap components using it**
 ```
 <AuthContext.Provider value={{
-        isLoggedIn: false,
+        isLoggedIn: isLoggedIn,
       }}>
  </AuthContext.Provider>
 ```
 **Children components will also have access to context props  (ctx.isLoggedIn in this case)
 and we don't have to pass it as via a chain of components which don't need it **
+**N.B. `<AuthContext.Provider value={{ some-object with relevant props}}>`
+is always required as it will allow updating state of context**
 
 **2. consume it:**
 
@@ -155,8 +158,7 @@ import { useContext } from 'react';
   const ctx = useContext(AuthContext)
 ```
 and then just use it - see <Login> and <Home>
-N.B. `<AuthContext.Provider value={{ some-object with relevant props}}>`
-is always required as it will allow updating state of context
+
 
 
 
