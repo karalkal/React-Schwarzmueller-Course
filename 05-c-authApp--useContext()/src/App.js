@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
@@ -6,6 +6,12 @@ import MainHeader from './components/MainHeader/MainHeader';
 import AuthContext from './store/auth-context';
 
 function App() {
+
+  /*
+  // Now state and login / logout functionality is managed in auth-context.js
+  // And we just get the context via the AuthContext.Provider component 
+  // Login and Home coms will get access to it too so we don's need to pass props around
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -27,6 +33,8 @@ function App() {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
+
+
   // AuthContext is not a component but its prop .Provider is.
   // Now all child components have access to context via value prop (ctx.isLoggedIn for example)
   // and we don't have to pass it as props to each and every child component.
@@ -43,6 +51,20 @@ function App() {
       </main>
     </AuthContext.Provider>
   );
+  */
+
+  const ctx = useContext(AuthContext)
+
+  return (
+    <React.Fragment>
+      <MainHeader />
+      <main>
+        {!ctx.isLoggedIn && <Login />}
+        {ctx.isLoggedIn && <Home />}
+      </main>
+    </React.Fragment>
+  );
+
 }
 
 export default App;

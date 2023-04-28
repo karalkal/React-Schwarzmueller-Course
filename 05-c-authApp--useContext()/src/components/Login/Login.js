@@ -1,8 +1,9 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect, useContext } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import AuthContext from '../../store/auth-context';
 
 
 function emailReducer(state, action) {
@@ -44,49 +45,27 @@ function passwordReducer(state, action) {
 
 const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
-  /*
-    const [state, dispatchFn] = useReducer(reducerFn, initialState, initFn)
+  const [emailState, dispatchEmail] = useReducer(emailReducer, { value: "", isValid: false })
+  const [passwordState, dispatchPassword] = useReducer(passwordReducer, { value: "", isValid: false })
 
-    dispatchFn - a function to update the state, will dispatch an action
-    reducerFn - a function which is triggered upon dispatch of an action, 
-    or in other words - (prevState, action) => newState
-  */
-  const [emailState, dispatchEmail] = useReducer(emailReducer,
-    {
-      value: "",
-      isValid: false
-    })
-  const [passwordState, dispatchPassword] = useReducer(passwordReducer,
-    {
-      value: "",
-      isValid: false
-    })
-  // Avoid the effect function re-running whenever ANY property of object changes - 
-  // not just the one property our effect might depend on. 
-  // To run effect only if values of isValid are changing 
-  // rather than whole emailState / passwordState (i.e. when typing == state.value changes):
-  // Destructure emailState / passwordState, obtain isValid prop, assign to them emailIsValid and passIsValid aliases)
-  // Then these will be the dependancies
+  // dependancies
   const { isValid: emailIsValid } = emailState
   const { isValid: passIsValid } = passwordState
-
   useEffect(() => {
     // Timeout
     const timeoutIdentifier = setTimeout(() => {
       console.log("Checking validity with delay")
       setFormIsValid(emailIsValid && passIsValid)
     }, 800)
-
     // Cleanup
     return () => {
       console.log("Cleaning up")
       clearTimeout(timeoutIdentifier)
     }
-
     // Depenedancies - effect will run only if these have changed
-  }, [emailIsValid, passIsValid]
-  )
+  }, [emailIsValid, passIsValid])
 
+  const ctx = useContext(AuthContext)
 
 
   const emailChangeHandler = (event) => {
@@ -117,7 +96,9 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    // useContext instead of props
+    ctx.onLogin(emailState.value, passwordState.value);
+    // props.onLogin(emailState.value, passwordState.value);
   };
 
   return (
