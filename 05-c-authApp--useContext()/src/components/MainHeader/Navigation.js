@@ -3,6 +3,7 @@ import React from 'react';
 import classes from './Navigation.module.css';
 import AuthContext from '../../store/auth-context';
 
+// the Consumer comp receives the context (named ctx here) and it can be utilized instead of props
 const Navigation = (props) => {
   return (
     <AuthContext.Consumer>
@@ -22,7 +23,7 @@ const Navigation = (props) => {
               )}
               {ctx.isLoggedIn && (
                 <li>
-                  <button onClick={props.onLogout}>Logout</button>
+                  <button onClick={ctx.onLogout}>Logout</button>
                 </li>
               )}
             </ul>

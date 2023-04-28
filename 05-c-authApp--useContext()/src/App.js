@@ -27,13 +27,14 @@ function App() {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
-  // AuthContext is not a component but its prop Provider is
-  // Now all child components have access to context (ctx.isLoggedIn)
-  // and we don't have to pass it as props.
-  // This way we avoid the chain of forwarding props via components which don't need it 
+  // AuthContext is not a component but its prop .Provider is.
+  // Now all child components have access to context via value prop (ctx.isLoggedIn for example)
+  // and we don't have to pass it as props to each and every child component.
+  // This way we avoid the chain of forwarding props via components which don't need it.
   return (
     <AuthContext.Provider value={{
       isLoggedIn: isLoggedIn,
+      onLogout: logoutHandler
     }}>
       <MainHeader onLogout={logoutHandler} />
       <main>
