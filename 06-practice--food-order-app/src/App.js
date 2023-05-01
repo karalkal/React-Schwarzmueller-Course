@@ -2,7 +2,7 @@ import { Fragment, useState, useContext } from 'react';
 import Header from './components/Layout/Header';
 import MainContainer from './components/Meals/MainContainer'
 import Cart from './components/Cart/Cart';
-import cartContext from './store/cart-context';
+import CartContextProvider from './store/CartContextProvider';
 
 
 function App() {
@@ -16,31 +16,14 @@ function App() {
     setCardVisible(false)
   }
 
-  // ctx functions
-  function addItemToCartHandler(item) {
-  };
-
-  function removeItemFromCartHandler(id) {
-  };
-
   return (
-    <cartContext.Provider
-      value={{
-        items: [],
-        totalAmount: 0,
-        addItem: (addItemToCartHandler),
-        removeItem: removeItemFromCartHandler,
-      }}>
-
+    <CartContextProvider>
       {cartVisible && <Cart onHideCart={hideCartHandler} />}        {/* Cart is a Modal */}
-
       <Header onDisplayCart={showCartHandler} />
-
       <main>
         <MainContainer />
       </main>
-
-    </cartContext.Provider>
+    </CartContextProvider>
   );
 }
 
