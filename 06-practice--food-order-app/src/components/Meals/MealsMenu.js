@@ -1,4 +1,4 @@
-import classes from './MealsManu.module.css';
+import classes from './MealsMenu.module.css';
 import Card from '../UI/Card'
 import MealItem from './MealItem'
 
@@ -33,6 +33,7 @@ const AvailableMeals = () => {
   const mealsAsComponents = MEALS_LIST.map((meal) =>
     <MealItem
       key={meal.id}
+      id={meal.id}
       name={meal.name}
       description={meal.description}
       price={meal.price}
