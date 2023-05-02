@@ -9,8 +9,31 @@ const defaultCartState = {
 // reducer - change state based on action.type
 function cartReducer(state, action) {
     if (action.type === 'ADD_ITEM') {
-        const updatedItems = [action.item, ...state.items]
+        let updatedItems = []
+        let itemAlreadyInCart = state.items.find(thingie => thingie.id === action.item.id)
+
+        // IF FOUND: increment amount of found item
+        // NB Unexpected (for me) behaviour when incrementing itemAlreadyInCart.amount += action.item.amount
+        // therefore create new obj instead...
+        if (itemAlreadyInCart !== undefined) {
+            let foundIdx = state.items.indexOf(itemAlreadyInCart)
+            let updatedCartItem = {
+                ...itemAlreadyInCart,
+                amount: itemAlreadyInCart.amount + action.item.amount
+            }
+            // ... and create new array from old one with non-destructive splicing, i.e. [...slice1, replace, ...slice2]
+            updatedItems = [
+                ...state.items.slice(0, foundIdx),
+                updatedCartItem,
+                ...state.items.slice(foundIdx + 1)]
+        }
+        // if undefined just unshift (in non-destructive manner) item to array
+        else {
+            updatedItems = [action.item, ...state.items]
+        }
+
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount   // expect item to have price and amount props
+
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount,
