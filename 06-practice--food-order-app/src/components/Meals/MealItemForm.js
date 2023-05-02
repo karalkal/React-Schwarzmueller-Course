@@ -1,9 +1,22 @@
+import CartContext from '../../store/cart-context';
+import { useContext } from 'react';
+
 import Input from '../UI/Input';
 import classes from './MealItemForm.module.css';
 
+
 const MealItemForm = (props) => {
+    const ctx = useContext(CartContext)
+
+    // as props we only receive an Object like { id: "m3" }
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log(event.target)
+        const itemToOrder = {}
+    }
+
     return (
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
             <Input
                 // label takes input.id and labelName <label htmlFor={props.input.id}>{props.labelName}</label>
                 labelName='Amount'

@@ -1,21 +1,51 @@
 import CartContext from "./cart-context"
+import { useReducer } from 'react'
 
-const CartContextProvider = (props) => {
+// default cart state
+const defaultCartState = {
+    items: [],
+    totalAmount: 0,
+}
+// reducer - change state based on action.type
+function cartReducer(state, action) {
+    if (action.type === 'ADD_ITEM') {
+        const updatedItems = [action.item, ...state.items]
+        const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount   // expect item to have price and amount props
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount,
+        }
+    };
+    if (action.type === 'REMOVE_ITEM_BY_ID') {
+
+    };
+    return defaultCartState;
+}
+
+
+export default function CartContextProvider(props) {
+
+    const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState)
+
     // ctx functions
     function addItemToCartHandler(item) {
-        return {
-            ...cartContext,
-            items: [item, ...cartContext.items]
-        }
+        dispatchCartAction({
+            type: 'ADD_ITEM',
+            item: item
+        })
     };
 
     function removeItemFromCartHandler(id) {
+        dispatchCartAction({
+            type: 'REMOVE_ITEM_BY_ID',
+            id: id
+        })
     };
 
     const cartContext = {
-        items: [],
-        totalAmount: 0,
-        addItem: (addItemToCartHandler),
+        items: cartState.items,
+        totalAmount: cartState.totalAmount,
+        addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler,
     }
 
@@ -26,4 +56,3 @@ const CartContextProvider = (props) => {
     )
 }
 
-export default CartContextProvider
