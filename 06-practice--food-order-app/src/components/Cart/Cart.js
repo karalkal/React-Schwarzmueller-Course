@@ -7,12 +7,11 @@ import CartContext from '../../store/cart-context';
 const Cart = (props) => {
 
   const ctx = React.useContext(CartContext)
-  console.log(ctx)
 
   const cartItems = (
     <ul className={classes['cart-items']}>
       {ctx.items.map((item) => (
-        <li key={item.id}>{item.name}</li>
+        <li key={item.id}>{item.name} <b>- </b> {item.amount} <b>*</b> {item.price}</li>
       ))}
     </ul>
   );
