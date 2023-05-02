@@ -17,7 +17,13 @@ function cartReducer(state, action) {
         }
     };
     if (action.type === 'REMOVE_ITEM_BY_ID') {
-
+        const foundItem = state.items.find(thingie => thingie.id === action.id)
+        const updatedItems = state.items.filter(thingie => thingie.id !== foundItem.id)
+        const updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount   // expect item to have price and amount props
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount,
+        }
     };
     return defaultCartState;
 }
