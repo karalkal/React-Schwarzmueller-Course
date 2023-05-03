@@ -2,19 +2,16 @@ import CartContext from "./cart-context"
 import { useReducer } from 'react'
 
 // default cart state
-const defaultCartState = {
-    items: [],
-    totalAmount: 0,
-}
+const defaultCartState = { items: [], totalAmount: 0, }
+
 // reducer - change state based on action.type
 function cartReducer(state, action) {
-    if (action.type === 'ADD_ITEM') {
+    if (action.type === 'ADD_ITEM') {       // Add item to cart, or if existing calculate new amount (works for incrementing in cart too)
         let updatedItems = []
         let itemAlreadyInCart = state.items.find(thingie => thingie.id === action.item.id)
 
         // IF FOUND: increment amount of found item
-        // NB - ERROR when incrementing in place itemAlreadyInCart.amount += action.item.amount
-        // therefore create new obj instead...
+        // NB - ERROR when incrementing in place itemAlreadyInCart.amount += action.item.amount, therefore create new obj instead...
         if (itemAlreadyInCart !== undefined) {
             let foundIdx = state.items.indexOf(itemAlreadyInCart)
             let updatedCartItem = {
@@ -28,22 +25,23 @@ function cartReducer(state, action) {
                 updatedCartItem,
                 ...state.items.slice(foundIdx + 1)]
         }
-        // if undefined just unshift (in non-destructive manner) item to array
-        else {
+        else {              // IF NOT === undefined just unshift (in non-destructive manner) item to array
             updatedItems = [action.item, ...state.items]
         }
 
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount   // expect item to have price and amount props
-
+        // either way return new object with items and updated total
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount,
         }
     };
 
-    if (action.type === 'REMOVE_ITEM_BY_ID') {
+    if (action.type === 'REMOVE_ITEM_BY_ID') {          // Remove item with given altogether from cart
+
         const foundItem = state.items.find(thingie => thingie.id === action.id);
         if (!foundItem) return;      // just in case
+
         const updatedItems = state.items.filter(thingie => thingie.id !== foundItem.id);
         const updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount;   // expect item to have price and amount props
         return {
@@ -51,19 +49,33 @@ function cartReducer(state, action) {
             totalAmount: updatedTotalAmount,
         }
     };
-
+    // Decrement item in cart with givern id by 1
     if (action.type === 'DECREMENT_ITEM_BY_ID') {
+        let updatedItems = []
 
-        console.log("I AM HERE!")
         const foundItem = state.items.find(thingie => thingie.id === action.id);
         if (!foundItem) return;      // just in case
-        const updatedItems = state.items.filter(thingie => thingie.id !== foundItem.id);
-        const updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount;   // expect item to have price and amount props
+
+        let foundIdx = state.items.indexOf(foundItem)
+        let updatedCartItem = {
+            ...foundItem,
+            amount: foundItem.amount - 1
+        }
+
+        // ... and create new array from old one with non-destructive splicing, i.e. [...slice1, replace, ...slice2]
+        updatedItems = [
+            ...state.items.slice(0, foundIdx),
+            updatedCartItem,
+            ...state.items.slice(foundIdx + 1)]
+
+        const updatedTotalAmount = state.totalAmount - foundItem.price
+
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount,
         }
     };
+
     return defaultCartState;
 }
 
@@ -86,7 +98,7 @@ export default function CartContextProvider(props) {
             id: id
         })
     };
-    
+
     function decrementItemInCartHandler(id) {
         dispatchCartAction({
             type: 'DECREMENT_ITEM_BY_ID',

@@ -9,6 +9,7 @@ const Cart = (props) => {
 
   const ctx = React.useContext(CartContext)
 
+  // utilize function addItem in context by passing object with same id and amount of 1
   function incrementItemHandler(item) {
     const incrementedMeal = {
       ...item,
@@ -18,9 +19,12 @@ const Cart = (props) => {
   }
 
 
-  function decrementItemHandler(itemID) {
-    
+  function decrementItemHandler(itemID) {    
     ctx.decrementItem(itemID)
+  }
+
+  function removeItemHandler(itemID) {    
+    ctx.removeItem(itemID)
   }
 
   const cartItems = (
@@ -34,6 +38,7 @@ const Cart = (props) => {
           item={item}       // pass whole obj as prop so we can increment/decrement amount easier from child
           onIncrement={incrementItemHandler}
           onDecrement={decrementItemHandler}
+          onRemove={removeItemHandler}
         />
       ))}
     </ul>
