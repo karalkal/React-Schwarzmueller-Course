@@ -13,7 +13,7 @@ function cartReducer(state, action) {
         let itemAlreadyInCart = state.items.find(thingie => thingie.id === action.item.id)
 
         // IF FOUND: increment amount of found item
-        // NB Unexpected (for me) behaviour when incrementing itemAlreadyInCart.amount += action.item.amount
+        // NB - ERROR when incrementing in place itemAlreadyInCart.amount += action.item.amount
         // therefore create new obj instead...
         if (itemAlreadyInCart !== undefined) {
             let foundIdx = state.items.indexOf(itemAlreadyInCart)
@@ -21,6 +21,7 @@ function cartReducer(state, action) {
                 ...itemAlreadyInCart,
                 amount: itemAlreadyInCart.amount + action.item.amount
             }
+
             // ... and create new array from old one with non-destructive splicing, i.e. [...slice1, replace, ...slice2]
             updatedItems = [
                 ...state.items.slice(0, foundIdx),

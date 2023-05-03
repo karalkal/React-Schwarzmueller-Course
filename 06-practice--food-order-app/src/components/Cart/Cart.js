@@ -8,19 +8,30 @@ import CartItem from './CartItem'
 const Cart = (props) => {
 
   const ctx = React.useContext(CartContext)
-  function incrementItemHandler() { 
-    console.log(ctx)
+
+  function incrementItemHandler(item) {
+    const incrementedMeal = {
+      ...item,
+      amount: 1
+    }
+    ctx.addItem(incrementedMeal)
   }
-  function decrementItemHandler() { }
+
+
+  function decrementItemHandler(itemID) {
+    
+    ctx.removeItem(itemID)
+  }
 
   const cartItems = (
     <ul className={classes['cart-items']}>
       {ctx.items.map((item) => (
         <CartItem
           key={item.id}
-          name={item.name}
-          price={item.price}
-          amount={item.amount}
+          // name={item.name}
+          // price={item.price}
+          // amount={item.amount}
+          item={item}       // pass whole obj as prop so we can increment/decrement amount easier from child
           onIncrement={incrementItemHandler}
           onDecrement={decrementItemHandler}
         />
