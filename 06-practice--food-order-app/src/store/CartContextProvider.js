@@ -40,10 +40,25 @@ function cartReducer(state, action) {
             totalAmount: updatedTotalAmount,
         }
     };
+
     if (action.type === 'REMOVE_ITEM_BY_ID') {
-        const foundItem = state.items.find(thingie => thingie.id === action.id)
-        const updatedItems = state.items.filter(thingie => thingie.id !== foundItem.id)
-        const updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount   // expect item to have price and amount props
+        const foundItem = state.items.find(thingie => thingie.id === action.id);
+        if (!foundItem) return;      // just in case
+        const updatedItems = state.items.filter(thingie => thingie.id !== foundItem.id);
+        const updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount;   // expect item to have price and amount props
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount,
+        }
+    };
+
+    if (action.type === 'DECREMENT_ITEM_BY_ID') {
+
+        console.log("I AM HERE!")
+        const foundItem = state.items.find(thingie => thingie.id === action.id);
+        if (!foundItem) return;      // just in case
+        const updatedItems = state.items.filter(thingie => thingie.id !== foundItem.id);
+        const updatedTotalAmount = state.totalAmount - foundItem.price * foundItem.amount;   // expect item to have price and amount props
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount,
@@ -71,12 +86,20 @@ export default function CartContextProvider(props) {
             id: id
         })
     };
+    
+    function decrementItemInCartHandler(id) {
+        dispatchCartAction({
+            type: 'DECREMENT_ITEM_BY_ID',
+            id: id
+        })
+    };
 
     const cartContext = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler,
+        decrementItem: decrementItemInCartHandler,
     }
 
     return (

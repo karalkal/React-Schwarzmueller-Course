@@ -20,7 +20,7 @@ const Cart = (props) => {
 
   function decrementItemHandler(itemID) {
     
-    ctx.removeItem(itemID)
+    ctx.decrementItem(itemID)
   }
 
   const cartItems = (
