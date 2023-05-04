@@ -37,6 +37,12 @@
   flex-direction: column;
 }
 
+.actions>button:last-child {
+  background-color: #8a2b06;
+  color: #fff;
+}
+
+
 @media (min-width: 768px) {
   .actions {
     flex-direction: row;

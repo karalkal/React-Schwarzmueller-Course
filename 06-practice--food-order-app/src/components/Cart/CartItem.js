@@ -14,7 +14,7 @@ const CartItem = (props) => {
       <div className={classes.actions}>
         <button onClick={() => props.onDecrement(props.item.id)}>−</button>
         <button onClick={() => props.onIncrement(props.item)}>+</button>
-        <button onClick={() => props.onRemove(props.item.id)}>x</button>
+        <button onClick={() => props.onRemove(props.item.id)}><i className="fa-solid fa-trash"></i></button>
       </div>
     </li>
   );
