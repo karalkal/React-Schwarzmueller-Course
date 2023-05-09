@@ -21,7 +21,7 @@ const MealItemForm = (props) => {
         props.onAddToCart(amountEntry)
     }
     // here we get onAddToCart function prop from parent, and pass back just the amount
-    // another approach could be to pass obj from pareent, update it with quantity here and update cart state by passing object to ctx
+    // another approach could be to pass obj from parent, update it with quantity here and update cart state by passing object to ctx
 
     return (
         <form className={classes.form} onSubmit={handleSubmit}>

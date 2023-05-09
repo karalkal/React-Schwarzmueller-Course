@@ -1,11 +1,11 @@
-## Description
+# Description
 
 This project is based on  Max Schwarzmueller 's tutorial [react-complete-guide](https://github.com/academind/react-complete-guide-code).
 There are quite a few modifications of the code (not necessarily for the better) and comments detailing these changes as well as some of the basic React concepts.
 All topics covered by Max have been utilized in separate projects in a similar manner to how the original course has been structured.
 Below could be found notes created for my own reference.
 
-### **01-basics--react-expense-tracker** 
+## **01-basics--react-expense-tracker** 
 #### *(Comprehensive overview of React basics such as components, props, useState hook etc.)*
 **Modifications**
 - In original code Date.js was separate component which was then included in ExpenseItem.js component.
@@ -15,7 +15,8 @@ I have merged it into the ExpenseItem.js itself, thus simplifying the app struct
 - After each restart the app will attempt to load data from localStorage and if it gets 'undefined' the hard-coded data from the app will be reloaded again.
  - Because of this major modifications were made in the way Data objects were manipulated. Data in localStorage is stored as json, hence the date objects are strings which we need to parse again to Date objects so we can obtain the day, month, year in the required format. At the same time newly created items need to have their date cast to toISOString() before being added to the array we will be stringifying and saving in localStorage. Please refer to the actual code and comments.
 
-### **02-styling--styled-components-css-modules** 
+
+## **02-styling--styled-components-css-modules** 
 #### *(Dynamic CSS styling)*
 
 There are 3 versions of  CourseInput folder which contains the CourseInput.js component where Max has demonstrated the 3 techniques to apply dynamic styling to an element - if the user tries to submit a blank form the class invalid will be applied to the div element which will then affect the children <label\> and <input\> by coloring them red(dish):
@@ -85,24 +86,27 @@ With this method no css file is actually required
 - then use styles object like this         `className={`${styles['form-control']} ${!isValid && styles.invalid}`}`
 NOTE: we have ['form-control'] because of the minus in the name of the property
 
-### **03-practice-render-input-as-card** 
+
+## **03-practice-render-input-as-card** 
 #### *(Practicing the topics covered so far)*
 
-NOTE: My implementation difers significantly from Max's as it has been created entirely independently
+NOTE: My implementation differs significantly from Max's as it has been created entirely independently
 
-### **04-04-render-input-as-card-portal-refs** 
-#### *(Refactored form to use refs instead of name/value crossreferencing via state, 
+
+## **04-render-input-as-card-portal-refs** 
+#### *(Refactored form to use refs instead of name/value cross referencing via state, 
 #### modal rendered at top level by use of portal)*
 
-### **05-side-effects--reducers--context-api**
-####05-a
+
+## **05-side-effects--reducers--context-api**
+###05-a
 useEffect() triggers an action in response to a side effect, i.e. page loading/re-loading, 
 user input changes, data being loaded from server etc.
 It runs AFTER the render. 
 IF any of the dependancies changes, the function will run AGAIN
-####05-b
+###05-b
  
-####05-c and 05-d
+###05-c and 05-d
 It is not perfect when you pass state over multiple components with props if the "middle" components don't really use this, 
 i.e. they are only used as intermediary between a higher and lower level components. 
 In this case we have <MainHeader/> getting props from <App/> only to pass them on to <Navigation/>
@@ -119,8 +123,7 @@ const MainHeader = (props) => {
 
 We create Context like this:`
 const AuthContext = React.createContext({
-    isLoggedIn: false,
-    ...: ...
+    isLoggedIn: false
 })
 
 export default AuthContext`
@@ -129,17 +132,14 @@ Then we need to
 **1. provide it / wrap components using it**
 ```
 <AuthContext.Provider value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: false,
       }}>
  </AuthContext.Provider>
 ```
 **Children components will also have access to context props  (ctx.isLoggedIn in this case)
 and we don't have to pass it as via a chain of components which don't need it **
-**N.B. `<AuthContext.Provider value={{ some-object with relevant props}}>`
-is always required as it will allow updating state of context**
 
 **2. consume it:**
-
 2.1. with AuthContext.Consumer 
 *In this example:*
 Originally we pass props from <App> to <MainHeader> to <Navigation>. Now with useContext <Navigation /> gets direct access to the context provided by <App>.
@@ -158,8 +158,46 @@ import { useContext } from 'react';
   const ctx = useContext(AuthContext)
 ```
 and then just use it - see <Login> and <Home>
+**N.B. `<AuthContext.Provider value={{ some-object with relevant props}}>`
+is always required as it will allow updating state of context**
 
 
+##**06-practice--food-order-app**
+#### Recap of topics covered so far - very brief description of project, main takeaways only
+*Please note the code differs from the original as many things have been implemented my way*
+
+-  components folder contains subfolders dedicated to specific functionalities / page sections - i.e. we have Card element which returns 
+a generic div which is expecting css classes and whatever any children elements it is being provided via props:
+```
+const Card = props => {
+  return <div className={classes.card}>{props.children}</div>
+};
+```
+-  Input.js returns another reusable custom component. Here, however, we need to be able to pass ref in parent component 
+MealItemForm so that value of `const inputAmountRef = useRef() ` stays updated (It correspondents to whatever we have 
+as ref={inputAmountRef} in the form). After submission (onSubmit) of form this value is processed and passed wherever it is needed.
+**We use React.forwardRef()** with the following syntax:
+```
+const Input = React.forwardRef(
+  (props, ref) => {
+    return (
+      <div className={classes.input} >
+        <label htmlFor={props.input.id}>{props.labelName}</label>
+        {/* forwardRef allows to use useRef in next component,
+        use of spread operator allows to set all attributes received as props automatically,
+        in MealItemForm will be just the id */}
+        <input
+          ref={ref}
+          {...props.input} />
+      </div>
+    );
+```
+Now in MealItemForm.js we can useRef() with the custom component Input like this:
+
+```
+<Input ref={inputAmountRef} />
+
+```
 
 
 
