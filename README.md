@@ -3,7 +3,7 @@
 This project is based on  Max Schwarzmueller 's tutorial [react-complete-guide](https://github.com/academind/react-complete-guide-code).
 There are quite a few modifications of the code (not necessarily for the better) and comments detailing these changes as well as some of the basic React concepts.
 All topics covered by Max have been utilized in separate projects in a similar manner to how the original course has been structured.
-Below could be found notes created for my own reference.
+Below could be found notes created mainly for my own reference.
 
 ## **01-basics--react-expense-tracker** 
 #### *(Comprehensive overview of React basics such as components, props, useState hook etc.)*
@@ -31,7 +31,8 @@ There are 3 versions of  CourseInput folder which contains the CourseInput.js co
   color: red;
 }
 ```
-The 3 folders are interchangeable, the one with the valid name (i.e. currently used) is version 3 (using modules)
+The 3 folders are interchangeable, the one with the valid name (i.e. currently used) is version 3 (using modules).
+**Please check the relevant files!**
 
 **1. using string interpolation and conditionally adding the invalid class**
 
@@ -93,23 +94,24 @@ NOTE: we have ['form-control'] because of the minus in the name of the property
 NOTE: My implementation differs significantly from Max's as it has been created entirely independently
 
 
-## **04-render-input-as-card-portal-refs** 
-#### *(Refactored form to use refs instead of name/value cross referencing via state, 
-#### modal rendered at top level by use of portal)*
-
+## **04-render-input-as-card--portal-refs** 
+***(Refactored form to use refs instead of name/value cross referencing via state, 
+modal rendered at top level by use of portal)***
 
 ## **05-side-effects--reducers--context-api**
-###05-a
-useEffect() triggers an action in response to a side effect, i.e. page loading/re-loading, 
+###05-a - useEffect()
+**useEffect() triggers an action in response to a side effect,** i.e. page loading/re-loading, 
 user input changes, data being loaded from server etc.
 It runs AFTER the render. 
 IF any of the dependancies changes, the function will run AGAIN
-###05-b
+
+###05-b - useReducer()
+manage more complex state(s)
  
-###05-c and 05-d
+###05-c and 05-d - useContext()
 It is not perfect when you pass state over multiple components with props if the "middle" components don't really use this, 
 i.e. they are only used as intermediary between a higher and lower level components. 
-In this case we have <MainHeader/> getting props from <App/> only to pass them on to <Navigation/>
+In the below case we have <MainHeader/> getting props from <App/> only to pass them on to <Navigation/>
 ```
 const MainHeader = (props) => {
   return (
@@ -121,7 +123,7 @@ const MainHeader = (props) => {
 };
 ```
 
-We create Context like this:`
+Instead we create Context like this:`
 const AuthContext = React.createContext({
     isLoggedIn: false
 })
@@ -162,8 +164,8 @@ and then just use it - see <Login> and <Home>
 is always required as it will allow updating state of context**
 
 
-##**06-practice--food-order-app**
-#### Recap of topics covered so far - very brief description of project, main takeaways only
+## **06-practice--food-order-app**
+#### Recap of topics covered so far - brief description of project, main takeaways only
 *Please note the code differs from the original as many things have been implemented my way*
 
 -  components folder contains subfolders dedicated to specific functionalities / page sections - i.e. we have Card element which returns 
@@ -198,6 +200,7 @@ Now in MealItemForm.js we can useRef() with the custom component Input like this
 <Input ref={inputAmountRef} />
 
 ```
+-  
 
 
 
