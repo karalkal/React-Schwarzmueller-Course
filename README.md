@@ -175,9 +175,14 @@ const Card = props => {
   return <div className={classes.card}>{props.children}</div>
 };
 ```
--  Input.js returns another reusable custom component. Here, however, we need to be able to pass ref in parent component 
-MealItemForm so that value of `const inputAmountRef = useRef() ` stays updated (It correspondents to whatever we have 
-as ref={inputAmountRef} in the form). After submission (onSubmit) of form this value is processed and passed wherever it is needed.
+-  To add MealItems to the Cart we use a child component MealItemForm and pass the handler function to it:
+```
+      <div><MealItemForm id={props.id} onAddToCart={addToCarthandler} /></div>
+
+```
+MealItemForm uses the Input.js custom component.
+We need to be able to pass ref in parent component MealItemForm so that value of `const inputAmountRef = useRef() ` 
+stays updated (It correspondents to whatever we have as ref={inputAmountRef} in the form). After submission (onSubmit) of form this value is processed and passed wherever it is needed. Since Input.js is custom component we cannot do this directly in MealItemForm.js, we need to use forwardRef in Input.js first.
 **We use React.forwardRef()** with the following syntax:
 ```
 const Input = React.forwardRef(
@@ -199,8 +204,7 @@ Now in MealItemForm.js we can useRef() with the custom component Input like this
 ```
 <Input ref={inputAmountRef} />
 
-```
--  
+```  
 
 
 
