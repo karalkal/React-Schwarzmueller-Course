@@ -36,7 +36,7 @@ function useHttp (requestConfig, applyData) {
   }
 
   //  at the end of custom hook component we must return the states and sendRequest
-  //  so that the component using the custom hook can have access these
+  //  so that the component using the custom hook can access these
   return {
     isLoading,
     error,
