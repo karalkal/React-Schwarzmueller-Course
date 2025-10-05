@@ -8,7 +8,7 @@ function App () {
   const [tasks, setTasks] = useState([])
 
   function transformTasks (tasksObj) {
-    // transform objects received from response to objects with id and text
+    // transform objects received from response to objects with id and text which we need to map and render
     const loadedTasks = []
 
     for (const taskKey in tasksObj) {
