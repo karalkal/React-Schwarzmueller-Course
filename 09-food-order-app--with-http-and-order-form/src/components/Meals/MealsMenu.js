@@ -11,9 +11,14 @@ const MENU_URL = "https://react-food-order-app-79c6b-default-rtdb.europe-west1.f
 const AvailableMeals = () => {
     const [menu, setMenu] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(null);
 
     useEffect(() => {
-        fetchMenu()
+        // cannot use try/catch to catch error from fetchMenu here because it returns a promise, therefore use below syntax
+        fetchMenu().then().catch(error => {
+            setIsLoading(false);
+            setHasError(error.message)
+        })
     }, []);
 
     async function fetchMenu() {
@@ -32,7 +37,7 @@ const AvailableMeals = () => {
             setMenu(pizzaMenu);
 
         } catch (err) {
-            console.log(err.message || 'Something went wrong!')
+            throw new Error('Invalid response!');
         }
         setIsLoading(false);
     }
@@ -56,6 +61,13 @@ const AvailableMeals = () => {
             <p>Loading...</p>
         </section>)
     }
+
+    if (hasError) {
+        return (<section className={classes['meals-error']}>
+            <p>{hasError}</p>
+        </section>)
+    }
+
 
     const mealsAsComponents = menu.map((menuItem) =>
         <MealItem

@@ -4,6 +4,12 @@
     padding: 11px;
 }
 
+.meals-error {
+    text-align: center;
+    color: red;
+    padding: 11px;
+}
+
 .meals {
     max-width: 60rem;
     width: 90%;
