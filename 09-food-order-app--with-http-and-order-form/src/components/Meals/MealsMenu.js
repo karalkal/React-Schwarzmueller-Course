@@ -10,12 +10,14 @@ const MENU_URL = "https://react-food-order-app-79c6b-default-rtdb.europe-west1.f
 
 const AvailableMeals = () => {
     const [menu, setMenu] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         fetchMenu()
     }, []);
 
     async function fetchMenu() {
+        setIsLoading(true);
         try {
             const response = await fetch(MENU_URL)
             if (!response.ok) {
@@ -32,6 +34,7 @@ const AvailableMeals = () => {
         } catch (err) {
             console.log(err.message || 'Something went wrong!')
         }
+        setIsLoading(false);
     }
 
     function transformData(incomingData) {
@@ -46,6 +49,12 @@ const AvailableMeals = () => {
             transformedData.push(pizza)
         }
         return transformedData
+    }
+
+    if (isLoading) {
+        return (<section className={classes['meals-loader']}>
+            <p>Loading...</p>
+        </section>)
     }
 
     const mealsAsComponents = menu.map((menuItem) =>
