@@ -1,0 +1,24 @@
+{
+  "pizzas": {
+    "m1": {
+      "name": "Marinara",
+      "description": "Tomato Sauce · Oregano · Basil",
+      "price": 5.99
+    },
+    "m2": {
+      "name": "Fiorentina",
+      "description": "Tomato Sauce · Mozzarella · Parmesan · Egg · Fresh Spinach",
+      "price": 7.5
+    },
+    "m3": {
+      "name": "Regina",
+      "description": "Tomato Sauce · Mozzarella · Parmesan · Ham · Mushrooms · Black Olives",
+      "price": 7.1
+    },
+    "m4": {
+      "name": "Calabria",
+      "description": "Tomato Sauce · Mozzarella · Mascarpone · Nduja Spicy Sausage · Rocket",
+      "price": 18.99
+    }
+  }
+}
