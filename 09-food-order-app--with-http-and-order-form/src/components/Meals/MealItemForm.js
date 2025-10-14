@@ -11,14 +11,14 @@ const MealItemForm = (props) => {
     // as props we only receive an Object like { id: "m3" }
     function handleSubmit(event) {
         event.preventDefault()
-        const amountEntry = Number(inputAmountRef.current.value)
+        const enteredAmountAsNumber = Number(inputAmountRef.current.value)
 
         // Validation for blank or not 1-5
-        if (![1, 2, 3, 4, 5].includes(amountEntry)) {
+        if (![1, 2, 3, 4, 5].includes(enteredAmountAsNumber)) {
             setAmountIsValid(false)
             return
         }
-        props.onAddToCart(amountEntry)
+        props.onAddToCart(enteredAmountAsNumber)
     }
     // here we get onAddToCart function prop from parent, and pass back just the amount
     // another approach could be to pass obj from parent, update it with quantity here and update cart state by passing object to ctx

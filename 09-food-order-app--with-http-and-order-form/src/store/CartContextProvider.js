@@ -19,7 +19,7 @@ function cartReducer(state, action) {
                 ...itemAlreadyInCart,
                 amount: itemAlreadyInCart.amount + action.item.amount
             }
-            console.log("itemAlreadyInCart.amount", itemAlreadyInCart.amount, "action.item.amount", action.item.amount)
+
             // ... and create new array from old one with non-destructive splicing, i.e. [...slice1, replace, ...slice2]
             updatedItems = [
                 ...state.items.slice(0, foundIdx),
