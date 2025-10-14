@@ -10,7 +10,7 @@ const Cart = (props) => {
     const [isCheckout, setIsCheckout] = useState(false);
     const cartCtx = useContext(CartContext);
 
-    const totalAmount = `$${Math.abs(cartCtx.totalAmount).toFixed(2)}`; // after a add/remove operation updates displays $-0.00 
+    const totalAmount = `$${Math.abs(cartCtx.totalAmount).toFixed(2)}`;         // after a add/remove operation updates displays $-0.00 
     const hasItems = cartCtx.items.length > 0;
 
     const cartItemRemoveHandler = (id) => {

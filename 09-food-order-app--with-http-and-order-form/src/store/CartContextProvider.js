@@ -11,7 +11,7 @@ function cartReducer(state, action) {
         let updatedItems = []
         let itemAlreadyInCart = state.items.find(thingie => thingie.id === action.item.id)
 
-        // IF FOUND: increment amount of found item
+        // IF FOUND: if adding from MealItem, amount will be 1-5, if adding from cart amount will be 1 (increment)
         // NB - ERROR when incrementing in place itemAlreadyInCart.amount += action.item.amount, therefore create new obj instead...
         if (itemAlreadyInCart !== undefined) {
             let foundIdx = state.items.indexOf(itemAlreadyInCart)
@@ -19,14 +19,14 @@ function cartReducer(state, action) {
                 ...itemAlreadyInCart,
                 amount: itemAlreadyInCart.amount + action.item.amount
             }
-
             // ... and create new array from old one with non-destructive splicing, i.e. [...slice1, replace, ...slice2]
             updatedItems = [
                 ...state.items.slice(0, foundIdx),
                 updatedCartItem,
                 ...state.items.slice(foundIdx + 1)]
         }
-        else {              // IF NOT, itemAlreadyInCart === undefined just unshift (in non-destructive manner) item to array, i.e. put first / top of list
+        // IF NOT, itemAlreadyInCart === undefined just unshift (in non-destructive manner) item to array, i.e. put first / top of list
+        else {
             updatedItems = [action.item, ...state.items]
         }
 
