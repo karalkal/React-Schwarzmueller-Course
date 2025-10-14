@@ -6,7 +6,8 @@ const defaultCartState = { items: [], totalAmount: 0, }
 
 // reducer - change state based on action.type
 function cartReducer(state, action) {
-    if (action.type === 'ADD_ITEM') {       // Add item to cart, or if existing calculate new amount (works for incrementing in cart too)
+    if (action.type === 'ADD_ITEM') {
+        // Add item to cart, or if existing calculate new amount (works for incrementing in cart too)
         let updatedItems = []
         let itemAlreadyInCart = state.items.find(thingie => thingie.id === action.item.id)
 
@@ -18,7 +19,7 @@ function cartReducer(state, action) {
                 ...itemAlreadyInCart,
                 amount: itemAlreadyInCart.amount + action.item.amount
             }
-
+            console.log("itemAlreadyInCart.amount", itemAlreadyInCart.amount, "action.item.amount", action.item.amount)
             // ... and create new array from old one with non-destructive splicing, i.e. [...slice1, replace, ...slice2]
             updatedItems = [
                 ...state.items.slice(0, foundIdx),

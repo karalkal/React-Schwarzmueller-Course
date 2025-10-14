@@ -18,7 +18,7 @@ function App() {
 
     return (
         <CartContextProvider>
-            {cartVisible && <Cart onHideCart={hideCartHandler} />}        {/* Cart is a Modal */}
+            {cartVisible && <Cart onClose={hideCartHandler} />}        {/* Cart is a Modal */}
             <Header onDisplayCart={showCartHandler} />
             <main>
                 <MainContainer />
