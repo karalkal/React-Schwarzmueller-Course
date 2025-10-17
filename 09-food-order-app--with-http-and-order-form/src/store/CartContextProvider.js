@@ -49,7 +49,8 @@ function cartReducer(state, action) {
             totalAmount: updatedTotalAmount,
         }
     };
-    // Decrement item in cart with givern id by 1
+
+    // Decrement item in cart with given id by 1, NOT IMPLEMENTED
     if (action.type === 'DECREMENT_ITEM_BY_ID') {
         let updatedItems = []
 
@@ -83,6 +84,11 @@ function cartReducer(state, action) {
         }
     };
 
+    if (action.type === 'RESET_CART') {
+        return defaultCartState;
+    }
+
+
     return defaultCartState;
 }
 
@@ -113,12 +119,17 @@ export default function CartContextProvider(props) {
         })
     };
 
+    function resetCartHandler() {
+        dispatchCartAction('RESET_CART')
+    }
+
     const cartContext = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler,
         decrementItem: decrementItemInCartHandler,
+        resetCart: resetCartHandler,
     }
 
     return (

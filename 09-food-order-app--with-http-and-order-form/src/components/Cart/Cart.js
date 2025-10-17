@@ -10,6 +10,9 @@ const ORDERS_URL = "https://react-food-order-app-79c6b-default-rtdb.europe-west1
 
 const Cart = (props) => {
     const [isCheckout, setIsCheckout] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
     const cartCtx = useContext(CartContext);
 
     const totalAmount = `$${Math.abs(cartCtx.totalAmount).toFixed(2)}`;         // after a add/remove operation updates displays $-0.00 
@@ -29,7 +32,8 @@ const Cart = (props) => {
 
 
     async function submitOrderHandler(userData) {
-        console.log(userData, cartCtx.items)
+        console.log(userData, cartCtx.items);
+        setIsSubmitting(true);
         try {
             const requestConfig = {
                 method: 'POST',
@@ -45,14 +49,17 @@ const Cart = (props) => {
             const response = await fetch(ORDERS_URL, requestConfig)
             const json = await response.json()
             if (response.ok) {
-                console.log(json);
-                return
+                console.log(json);  // normally will give the user some feedback if order created
             } else {
                 console.log(response);
             }
         } catch (error) {
             throw new Error(error.message);
         }
+        setIsSubmitting(false);
+        setHasSubmitted(true);
+
+        cartCtx.resetCart(); // reset context, not component
     }
 
     const cartItems = (
@@ -83,8 +90,8 @@ const Cart = (props) => {
         </div>
     );
 
-    return (
-        <Modal onClose={props.onClose}>
+    const cartModalContent =
+        <>
             {cartItems}
             <div className={classes.total}>
                 <span>Total Amount</span>
@@ -92,6 +99,27 @@ const Cart = (props) => {
             </div>
             {isCheckout && <Checkout onCancel={props.onClose} onSubmitOrder={submitOrderHandler} />}
             {!isCheckout && modalActions}
+        </>
+
+    return (
+        <Modal onClose={props.onClose}>
+            {!isSubmitting && !hasSubmitted && cartModalContent}
+            {isSubmitting && <>
+                <p>Sending data to backend...</p>
+                <div className={classes.actions}>
+                    <button className={classes.button} onClick={props.onClose}>
+                        Close
+                    </button>
+                </div>
+            </>}
+            {hasSubmitted && !isSubmitting && <>
+                <p>Order received</p>
+                <div className={classes.actions}>
+                    <button className={classes.button} onClick={props.onClose}>
+                        Close
+                    </button>
+                </div>
+            </>}
         </Modal>
     );
 };
