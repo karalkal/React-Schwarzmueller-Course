@@ -8,17 +8,22 @@ const Checkout = (props) => {
         { name: true, street: true, postCode: true, city: true, }
     );
 
-    console.log(formInputsAreValid)
-
-
+    //define refs
     const nameInputRef = useRef();
     const streetInputRef = useRef();
     const postCodeInputRef = useRef();
     const cityInputRef = useRef();
 
+    // apply css classes depending on validity of entries
+    const nameControlClasses = `${classes.control} ${formInputsAreValid.name ? '' : classes.invalid}`;
+    const streetControlClasses = `${classes.control} ${formInputsAreValid.street ? '' : classes.invalid}`;
+    const postCodeControlClasses = `${classes.control} ${formInputsAreValid.postCode ? '' : classes.invalid}`;
+    const cityControlClasses = `${classes.control} ${formInputsAreValid.city ? '' : classes.invalid}`;
+
     const submitHandler = (event) => {
         event.preventDefault();
 
+        //set entries to entered value or false
         const nameEntry = nameInputRef.current.value.trim() !== ""
             ? nameInputRef.current.value.trim()
             : false;
@@ -34,26 +39,26 @@ const Checkout = (props) => {
 
 
         setFormInputsAreValid({
-            // ...formInputsAreValid,
             name: nameEntry, street: streetEntry,
             postCode: postCodeEntry, city: cityEntry
         });
+        // and component re-renders, values are set to true again, hence the first line below prints [ true, true, true, true ] and validator fails
+        console.log(Object.values(formInputsAreValid));
+        console.log([nameEntry, streetEntry, postCodeEntry, cityEntry]);
+
+        if ([nameEntry, streetEntry, postCodeEntry, cityEntry].some(val => val === false)) {
+            console.log("Ain't happening =", [nameEntry, streetEntry, postCodeEntry, cityEntry])
+            return
+        };
+
+        // if valid -> submit
+        props.onSubmitOrder({
+            name: nameEntry,
+            street: streetEntry,
+            postCode: postCodeEntry,
+            city: cityEntry,
+        })
     };
-
-    const nameControlClasses = `${classes.control} ${formInputsAreValid.name ? '' : classes.invalid
-        }`;
-    const streetControlClasses = `${classes.control} ${formInputsAreValid.street ? '' : classes.invalid
-        }`;
-    const postCodeControlClasses = `${classes.control} ${formInputsAreValid.postCode ? '' : classes.invalid
-        }`;
-    const cityControlClasses = `${classes.control} ${formInputsAreValid.city ? '' : classes.invalid
-        }`;
-
-
-    if (Object.values(formInputsAreValid).some(val => val === false)) {
-        return
-    };
-    // if valid -> submit
 
 
     return (

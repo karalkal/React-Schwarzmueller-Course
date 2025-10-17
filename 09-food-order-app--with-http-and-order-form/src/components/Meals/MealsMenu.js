@@ -4,9 +4,7 @@ import MealItem from './MealItem'
 import { useEffect, useState } from 'react';
 
 
-const MENU_URL = "https://react-food-order-app-79c6b-default-rtdb.europe-west1.firebasedatabase.app/.json"
-// N.B. "pizzas" is the first object key, the menu itself is value, hence below we get it from data.pizzas
-
+const PIZZAS_URL = "https://react-food-order-app-79c6b-default-rtdb.europe-west1.firebasedatabase.app/pizzas.json"
 
 const AvailableMeals = () => {
     const [menu, setMenu] = useState([]);
@@ -24,7 +22,7 @@ const AvailableMeals = () => {
     async function fetchMenu() {
         setIsLoading(true);
         try {
-            const response = await fetch(MENU_URL)
+            const response = await fetch(PIZZAS_URL)
             if (!response.ok) {
                 throw new Error('Request failed!');
             }
@@ -33,7 +31,7 @@ const AvailableMeals = () => {
 
             // data will be like "m1": {"name": "Marinara","description": "Tomato Sauce · Oregano · Basil", "price": 5.99},
             // need to make it into an array of {id: "m1", name: "Marinara"}
-            const pizzaMenu = transformData(data.pizzas);
+            const pizzaMenu = transformData(data);
             setMenu(pizzaMenu);
 
         } catch (err) {
